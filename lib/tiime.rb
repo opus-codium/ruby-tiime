@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "tiime/version"
+require_relative 'tiime/version'
 
 module Tiime
   class Error < StandardError; end
