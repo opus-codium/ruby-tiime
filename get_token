@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'capybara'
+require 'capybara/dsl'
+require 'webdrivers'
+require 'flexirest'
+
+require 'byebug'
+
+class Browser
+  include Capybara::DSL
+
+  def initialize
+    Capybara.configure do |config|
+      config.run_server = false
+    end
+
+    Capybara.current_driver = :selenium
+  end
+end
+
+b = Browser.new
+b.visit 'https://apps.tiime.fr'
+b.fill_in 'Adresse mail', with: ENV['TIIME_USER']
+b.fill_in 'Mot de passe', with: ENV['TIIME_PASSWORD']
+b.click_on 'Je me connecte'
+
+b.find('.headline', text: 'Bonjour', wait: 30)
+b.execute_script 'document.querySelector("body").innerHTML=localStorage.getItem("access_token");'
+
+puts "TIIME_TOKEN=#{b.page.text}"
