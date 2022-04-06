@@ -4,9 +4,9 @@
 require 'capybara'
 require 'capybara/dsl'
 require 'webdrivers'
-require 'flexirest'
 
-require 'byebug'
+raise 'TIIME_USER environment variable is missing' if ENV['TIIME_USER'].nil?
+raise 'TIIME_PASSWORD environment variable is missing' if ENV['TIIME_PASSWORD'].nil?
 
 class Browser
   include Capybara::DSL
