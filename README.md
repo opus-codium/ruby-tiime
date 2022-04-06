@@ -1,28 +1,36 @@
 # Tiime
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tiime`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem `tiime` is a [Tiime](https://www.tiime.fr/) API client.
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'tiime'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install tiime
+Please note that an unofficial API client as _Tiime_ do not provide official API support.
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'tiime'
+
+# Companies
+pp Tiime::Company.all
+
+my_company = Company.all.first
+
+# Customers
+
+pp Tiime::Customer.all(company_id: my_company.id)
+
+# Bank accounts
+
+pp Tiime::BankAccount.all(company_id: my_company.id)
+
+# Bank transactions
+
+pp Tiime::BankTransaction.all(company_id: my_company.id)
+
+# Document
+
+pp Tiime::Document.all(company_id: my_company.id)
+
+```
 
 ## Development
 
@@ -32,8 +40,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/tiime. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/tiime/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/opus-codium/ruby-tiime.
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/opus-codium/ruby-tiime/blob/main/CODE_OF_CONDUCT.md).
 
 ## Code of Conduct
 
-Everyone interacting in the Tiime project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/tiime/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Tiime project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/opus-codium/ruby-tiime/blob/main/CODE_OF_CONDUCT.md).
