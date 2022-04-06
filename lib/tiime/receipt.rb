@@ -2,5 +2,7 @@
 
 require 'tiime/base_model'
 
-class Receipt < BaseModel
+module Tiime
+  class Receipt < BaseModel
+  end
 end
