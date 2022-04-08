@@ -10,6 +10,7 @@ require 'tiime'
 # (If you use this, don't forget to add pry to your Gemfile!)
 # require "pry"
 # Pry.start
+raise 'TIIME_TOKEN environment variable is missing' if ENV['TIIME_TOKEN'].nil?
 
 require 'irb'
 IRB.start(__FILE__)
