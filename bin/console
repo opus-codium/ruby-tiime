@@ -13,6 +13,7 @@ require 'tiime'
 raise 'TIIME_TOKEN environment variable is missing' if ENV['TIIME_TOKEN'].nil?
 
 Flexirest::Base.cache_store = ActiveSupport::Cache::MemoryStore.new
+Flexirest::Logger.logfile = Logger.new $stdout
 
 require 'irb'
 IRB.start(__FILE__)
