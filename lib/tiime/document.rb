@@ -18,5 +18,7 @@ module Tiime
     get :all, '/companies/:company_id/documents'
     get :find, '/companies/:company_id/documents/:id'
     get :download, '/companies/:company_id/documents/:id/file', plain: true
+    post :create, '/companies/:company_id/document_categories/:category_id/documents', request_body_type: :form_multipart
+    patch :update, '/companies/:company_id/documents/:id', request_body_type: :json
   end
 end
