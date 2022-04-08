@@ -12,5 +12,7 @@ require 'tiime'
 # Pry.start
 raise 'TIIME_TOKEN environment variable is missing' if ENV['TIIME_TOKEN'].nil?
 
+Flexirest::Base.cache_store = ActiveSupport::Cache::MemoryStore.new
+
 require 'irb'
 IRB.start(__FILE__)
