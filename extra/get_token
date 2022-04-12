@@ -27,6 +27,6 @@ b.fill_in 'Mot de passe', with: ENV['TIIME_PASSWORD']
 b.click_on 'Je me connecte'
 
 b.find('.headline', text: 'Bonjour', wait: 30)
-b.execute_script 'document.querySelector("body").innerHTML=localStorage.getItem("access_token");'
+token = b.execute_script 'return localStorage.getItem("access_token");'
 
-puts "TIIME_TOKEN=#{b.page.text}"
+puts "TIIME_TOKEN=#{token}"
