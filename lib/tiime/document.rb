@@ -4,7 +4,6 @@ require 'tiime/base_model'
 
 module Tiime
   class Document < BaseModel
-
     class Category < BaseModel
       get :all, '/companies/:company_id/document_categories'
       get :find, '/companies/:company_id/document_categories/:id'
