@@ -14,7 +14,7 @@ module Tiime
     has_many :invoices, Invoice
     has_many :clients, Customer
 
-    get :all, '/companies/:company_id/bank_transactions'
-    get :find, '/companies/:company_id/bank_transactions/:id'
+    get :all, '/companies/#company_id/bank_transactions'
+    get :find, '/companies/#company_id/bank_transactions/:id'
   end
 end
