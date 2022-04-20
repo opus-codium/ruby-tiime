@@ -26,7 +26,7 @@ b.fill_in 'Adresse mail', with: ENV['TIIME_USER']
 b.fill_in 'Mot de passe', with: ENV['TIIME_PASSWORD']
 b.click_on 'Je me connecte'
 
-b.find('.headline', text: 'Bonjour', wait: 30)
+b.find('.todo', text: 'A faire', wait: 30)
 token = b.execute_script 'return localStorage.getItem("access_token");'
 
 puts "TIIME_TOKEN=#{token}"
