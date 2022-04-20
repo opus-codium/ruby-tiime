@@ -12,7 +12,8 @@ require 'tiime'
 # Pry.start
 raise 'TIIME_TOKEN environment variable is missing' if ENV['TIIME_TOKEN'].nil?
 
-Flexirest::Base.cache_store = ActiveSupport::Cache::MemoryStore.new
+Flexirest::Base.cache_store = ActiveSupport::Cache::FileStore.new File.expand_path('~/.cache/tiime')
+
 Flexirest::Logger.logfile = Logger.new $stdout
 
 Tiime.default_company_id = Tiime::Company.all.first.id
