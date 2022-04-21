@@ -16,5 +16,16 @@ module Tiime
 
     get :all, '/companies/#company_id/bank_transactions'
     get :find, '/companies/#company_id/bank_transactions/:id'
+
+    def vat_amount
+      return nil if receipts.count.zero?
+
+      receipt_documents = receipts.map { |receipt| Tiime::Document.find receipt.id }
+
+      receipt_documents.inject(0.0) do |memo, receipt|
+        receipt_vat_amount = receipt.metadata.find { |m| m.key == 'vat_amount' }.value.value
+        memo += receipt_vat_amount
+      end
+    end
   end
 end
