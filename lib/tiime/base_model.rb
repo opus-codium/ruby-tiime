@@ -27,7 +27,7 @@ module Tiime
 
     after_request :cache_all
     def cache_all(name, response)
-      if name == :all
+      if [:all, :find].include? name
         response.response_headers["Expires"] = 1.hour.from_now.iso8601
       end
     end
