@@ -70,9 +70,7 @@ module Tiime
 
       def upload(file:, label:, date:, amount:, vat_amount:, filename: nil, company_id: nil)
         if company_id.nil?
-          if Tiime.default_company_id.nil?
-            raise 'Please provide a company_id or set default company ID (ie. Tiime.default_company_id)'
-          end
+          raise 'Please provide a company_id or set default company ID (ie. Tiime.default_company_id)' if Tiime.default_company_id.nil?
 
           company_id = Tiime.default_company_id
         end
@@ -104,9 +102,7 @@ module Tiime
       def category
         return @category unless @category.nil?
 
-        if Tiime.default_company_id.nil?
-          raise 'Unable to guess receipt category: no default company ID provided (ie. Tiime.default_company_id)'
-        end
+        raise 'Unable to guess receipt category: no default company ID provided (ie. Tiime.default_company_id)' if Tiime.default_company_id.nil?
 
         @category = Tiime::Document::Category.all(company_id: Tiime.default_company_id).where(name: 'Justificatifs').first
       end
