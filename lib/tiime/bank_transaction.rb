@@ -16,6 +16,7 @@ module Tiime
 
     get :all, '/companies/#company_id/bank_transactions'
     get :find, '/companies/#company_id/bank_transactions/:id'
+    post :upload_receipt, '/companies/#company_id/bank_transactions/:id/receipts', request_body_type: :form_multipart
 
     def vat_amount
       return nil if receipts.count.zero?

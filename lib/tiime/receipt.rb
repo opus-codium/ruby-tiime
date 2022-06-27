@@ -68,7 +68,7 @@ module Tiime
         attr_accessor :path
       end
 
-      def upload(file:, label:, date:, amount:, vat_amount:, filename: nil, company_id: nil)
+      def upload(file:, label:, date:, amount:, vat_amount:, filename: nil, company_id: nil, bank_transaction_id: nil)
         if company_id.nil?
           raise 'Please provide a company_id or set default company ID (ie. Tiime.default_company_id)' if Tiime.default_company_id.nil?
 
@@ -92,9 +92,15 @@ module Tiime
         ]
 
         # Creation
-        document = Tiime::Document.create company_id: company_id,
-                                          category_id: Tiime::Receipt.category.id,
-                                          file: file
+        if bank_transaction_id.nil?
+          document = Tiime::Document.create company_id: company_id,
+            category_id: Tiime::Receipt.category.id,
+            file: file
+        else
+          document = Tiime::BankTransaction.upload_receipt id: bank_transaction_id,
+            file: file
+        end
+
         # Add metadata
         Tiime::Document.update id: document.id, company_id: company_id, metadata: metadata
       end
