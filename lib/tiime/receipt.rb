@@ -64,22 +64,11 @@ module Tiime
     end
 
     class << self
-      module RenamableFile
-        attr_accessor :path
-      end
-
-      def upload(file:, label:, date:, amount:, vat_amount:, filename: nil, company_id: nil, bank_transaction_id: nil)
+      def upload(file:, label:, date:, amount:, vat_amount:, company_id: nil, bank_transaction_id: nil)
         if company_id.nil?
           raise 'Please provide a company_id or set default company ID (ie. Tiime.default_company_id)' if Tiime.default_company_id.nil?
 
           company_id = Tiime.default_company_id
-        end
-
-        file = File.open(file)
-
-        unless filename.nil?
-          file.extend RenamableFile
-          file.path = filename
         end
 
         date = date.strftime('%a %b %d %Y')
@@ -92,14 +81,14 @@ module Tiime
         ]
 
         # Creation
-        if bank_transaction_id.nil?
-          document = Tiime::Document.create company_id: company_id,
-            category_id: Tiime::Receipt.category.id,
-            file: file
-        else
-          document = Tiime::BankTransaction.upload_receipt id: bank_transaction_id,
-            file: file
-        end
+        document = if bank_transaction_id.nil?
+                     Tiime::Document.create company_id: company_id,
+                                            category_id: Tiime::Receipt.category.id,
+                                            file: file
+                   else
+                     Tiime::BankTransaction.upload_receipt id: bank_transaction_id,
+                                                           file: file
+                   end
 
         # Add metadata
         Tiime::Document.update id: document.id, company_id: company_id, metadata: metadata
