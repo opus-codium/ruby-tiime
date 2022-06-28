@@ -22,8 +22,8 @@ end
 
 b = Browser.new
 b.visit 'https://apps.tiime.fr'
-b.fill_in 'Adresse mail', with: ENV['TIIME_USER']
-b.fill_in 'Mot de passe', with: ENV['TIIME_PASSWORD']
+b.fill_in 'Adresse mail', with: ENV.fetch('TIIME_USER', nil)
+b.fill_in 'Mot de passe', with: ENV.fetch('TIIME_PASSWORD', nil)
 b.click_on 'Je me connecte'
 
 b.find('.todo', text: 'A faire', wait: 30)

@@ -5,7 +5,7 @@ require 'tiime'
 module Tiime
   module Receipt
     def date
-      m = metadata.find { |m| m.key == 'date' }
+      m = metadata.find { |md| md.key == 'date' }
       return nil if m.nil?
 
       return m.value if m.value.is_a? DateTime
@@ -16,7 +16,7 @@ module Tiime
     def date=(value)
       value = value.strftime('%a %b %d %Y')
 
-      m = metadata.find { |m| m.key == 'date' }
+      m = metadata.find { |md| md.key == 'date' }
       if m.nil?
         metadata << { key: 'date', type: 'datetime', value: value }
       else
@@ -25,11 +25,11 @@ module Tiime
     end
 
     def label
-      metadata.find { |m| m.key == 'wording' }&.value
+      metadata.find { |md| md.key == 'wording' }&.value
     end
 
     def label=(value)
-      m = metadata.find { |m| m.key == 'wording' }
+      m = metadata.find { |md| md.key == 'wording' }
       if m.nil?
         metadata << { key: 'wording', type: 'string', value: label }
       else
@@ -38,11 +38,11 @@ module Tiime
     end
 
     def amount
-      metadata.find { |m| m.key == 'amount' }&.value&.value
+      metadata.find { |md| md.key == 'amount' }&.value&.value
     end
 
     def amount=(value)
-      m = metadata.find { |m| m.key == 'amount' }
+      m = metadata.find { |md| md.key == 'amount' }
       if m.nil?
         metadata << { key: 'amount', type: 'amount', value: { currency: 'EUR', value: value } }
       else
@@ -51,11 +51,11 @@ module Tiime
     end
 
     def vat_amount
-      metadata.find { |m| m.key == 'vat_amount' }&.value&.value
+      metadata.find { |md| md.key == 'vat_amount' }&.value&.value
     end
 
     def vat_amount=(value)
-      m = metadata.find { |m| m.key == 'vat_amount' }
+      m = metadata.find { |md| md.key == 'vat_amount' }
       if m.nil?
         metadata << { key: 'vat_amount', type: 'vat_amount', value: { currency: 'EUR', value: value } }
       else
@@ -64,7 +64,7 @@ module Tiime
     end
 
     class << self
-      def upload(file:, label:, date:, amount:, vat_amount:, company_id: nil, bank_transaction_id: nil)
+      def upload(file:, label:, date:, amount:, vat_amount:, company_id: nil, bank_transaction_id: nil) # rubocop:disable Metrics/ParameterLists
         if company_id.nil?
           raise 'Please provide a company_id or set default company ID (ie. Tiime.default_company_id)' if Tiime.default_company_id.nil?
 

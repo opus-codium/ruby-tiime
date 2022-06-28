@@ -8,7 +8,7 @@ module Tiime
 
     before_request :set_bearer
     def set_bearer(_name, request)
-      request.headers['Authorization'] = "Bearer #{ENV['TIIME_TOKEN']}"
+      request.headers['Authorization'] = "Bearer #{ENV.fetch('TIIME_TOKEN', nil)}"
     end
 
     before_request :fill_company_id
