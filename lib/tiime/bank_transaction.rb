@@ -18,6 +18,13 @@ module Tiime
     get :find, '/companies/#company_id/bank_transactions/:id'
     post :upload_receipt, '/companies/#company_id/bank_transactions/:id/receipts', request_body_type: :form_multipart
 
+    before_request :cache_cleanup
+    def cache_cleanup(name, request)
+      # TODO: Be more selective
+      invalidate_cache_for self, request if %i[upload_receipt].include? name
+      nil
+    end
+
     def vat_amount
       return nil if receipts.count.zero?
 

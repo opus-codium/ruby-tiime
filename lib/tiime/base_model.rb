@@ -28,9 +28,14 @@ module Tiime
       request.url['#company_id'] = company_id.to_s
     end
 
-    after_request :cache_all
-    def cache_all(name, response)
+    after_request :cache
+    def cache(name, response)
       response.response_headers['Expires'] = 1.hour.from_now.iso8601 if %i[all find].include? name
+    end
+
+    def self.invalidate_cache_for(sender, request)
+      Flexirest::Logger.info("  \033[1;4;32m#{Flexirest.name}\033[0m Invalidating cache for #{sender.class.name} #{request.url}")
+      Flexirest::Base.cache_store.delete("#{self.class.name}:#{request.url}")
     end
   end
 end

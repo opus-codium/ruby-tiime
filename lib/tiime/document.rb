@@ -20,5 +20,12 @@ module Tiime
     post :create, '/companies/#company_id/document_categories/:category_id/documents',
          request_body_type: :form_multipart
     patch :update, '/companies/#company_id/documents/:id', request_body_type: :json
+
+    before_request :cache_cleanup
+    def cache_cleanup(name, request)
+      # TODO: Be more selective
+      invalidate_cache_for self, request if %i[create update].include? name
+      nil
+    end
   end
 end
