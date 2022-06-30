@@ -15,5 +15,10 @@ module Tiime
 
   class << self
     attr_accessor :default_company_id
+
+    attr_writer :cache_strategy
+    def cache_strategy
+      @cache_strategy ||= :lazy_cache
+    end
   end
 end

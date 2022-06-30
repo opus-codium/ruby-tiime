@@ -7,6 +7,12 @@ module Tiime
     class Category < BaseModel
       get :all, '/companies/#company_id/document_categories'
       get :find, '/companies/#company_id/document_categories/:id'
+
+      before_request :cache_refresh
+      def cache_refresh(name, request)
+        invalidate_cache_for self, request if Tiime.cache_strategy == :force_refresh
+        nil
+      end
     end
 
     class Metadata < BaseModel; end
@@ -24,7 +30,13 @@ module Tiime
     before_request :cache_cleanup
     def cache_cleanup(name, request)
       # TODO: Be more selective
-      invalidate_cache_for self, request if %i[create update].include? name
+      BaseModel.invalidate_cache_for(self, request) if %i[create update].include? name
+      nil
+    end
+
+    before_request :cache_refresh
+    def cache_refresh(name, request)
+      BaseModel.invalidate_cache_for(self, request) if Tiime.cache_strategy == :force_refresh
       nil
     end
   end

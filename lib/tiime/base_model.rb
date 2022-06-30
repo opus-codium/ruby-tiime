@@ -34,8 +34,10 @@ module Tiime
     end
 
     def self.invalidate_cache_for(sender, request)
-      Flexirest::Logger.info("  \033[1;4;32m#{Flexirest.name}\033[0m Invalidating cache for #{sender.class.name} #{request.url}")
-      Flexirest::Base.cache_store.delete("#{self.class.name}:#{request.url}")
+      cache_key = "#{sender.class.name}:#{request.url}"
+      Flexirest::Logger.debug("  \033[1;4;32m#{Flexirest.name}\033[0m No cache for key: #{cache_key}") unless Flexirest::Base.cache_store.exist? cache_key
+      Flexirest::Logger.info("  \033[1;4;32m#{Flexirest.name}\033[0m Invalidating cache for key: #{cache_key}")
+      Flexirest::Base.cache_store.delete cache_key
     end
   end
 end

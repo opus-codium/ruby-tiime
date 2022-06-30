@@ -9,6 +9,12 @@ module Tiime
     get :all, '/companies'
     get :find, '/companies/:id'
 
+    before_request :cache_refresh
+    def cache_refresh(name, request)
+      BaseModel.invalidate_cache_for(self, request) if Tiime.cache_strategy == :force_refresh
+      nil
+    end
+
     def customers
       Customer.all company_id: id
     end

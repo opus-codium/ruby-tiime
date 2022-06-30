@@ -21,7 +21,13 @@ module Tiime
     before_request :cache_cleanup
     def cache_cleanup(name, request)
       # TODO: Be more selective
-      invalidate_cache_for self, request if %i[upload_receipt].include? name
+      BaseModel.invalidate_cache_for(self, request) if %i[upload_receipt].include? name
+      nil
+    end
+
+    before_request :cache_refresh
+    def cache_refresh(name, request)
+      BaseModel.invalidate_cache_for(self, request) if Tiime.cache_strategy == :force_refresh
       nil
     end
 
