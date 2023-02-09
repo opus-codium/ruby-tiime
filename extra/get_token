@@ -26,7 +26,7 @@ b.fill_in 'Adresse mail', with: ENV.fetch('TIIME_USER', nil)
 b.fill_in 'Mot de passe', with: ENV.fetch('TIIME_PASSWORD', nil)
 b.click_on 'Je me connecte'
 
-b.find('.todo', text: 'A faire', wait: 30)
+b.find('.infos', wait: 30)
 token = b.execute_script 'return localStorage.getItem("access_token");'
 
 puts "TIIME_TOKEN=#{token}"
