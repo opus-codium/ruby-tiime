@@ -14,7 +14,7 @@ module Tiime
     has_many :invoices, Invoice
     has_many :clients, Customer
 
-    get :all, '/companies/#company_id/bank_transactions'
+    get :all, '/companies/#company_id/bank_transactions', timeout: 120
     get :find, '/companies/#company_id/bank_transactions/:id'
     post :upload_receipt, '/companies/#company_id/bank_transactions/:id/receipts', request_body_type: :form_multipart
 

@@ -24,7 +24,7 @@ module Tiime
     get :find, '/companies/#company_id/documents/:id'
     get :download, '/companies/#company_id/documents/:id/file', plain: true
     post :create, '/companies/#company_id/document_categories/:category_id/documents',
-         request_body_type: :form_multipart
+         request_body_type: :form_multipart, timeout: 120
     patch :update, '/companies/#company_id/documents/:id', request_body_type: :json
 
     before_request :cache_cleanup
