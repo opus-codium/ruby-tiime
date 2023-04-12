@@ -22,7 +22,7 @@ module Tiime
 
     get :all, '/companies/#company_id/documents'
     get :find, '/companies/#company_id/documents/:id'
-    get :download, '/companies/#company_id/documents/:id/file', plain: true
+    get :download, '/companies/#company_id/documents/:id/file', plain: true, skip_caching: true
     post :create, '/companies/#company_id/document_categories/:category_id/documents',
          request_body_type: :form_multipart, timeout: 120
     patch :update, '/companies/#company_id/documents/:id', request_body_type: :json
