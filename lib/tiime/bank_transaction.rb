@@ -37,7 +37,8 @@ module Tiime
       receipt_documents = receipts.map { |receipt| Tiime::Document.find receipt.id }
 
       receipt_documents.inject(0.0) do |memo, receipt|
-        receipt_vat_amount = receipt.metadata.find { |m| m.key == 'vat_amount' }.value.value
+        receipt_vat_amount = receipt.metadata.find { |m| m.key == 'vat_amount' }&.value&.value
+        receipt_vat_amount ||= 0
         memo + receipt_vat_amount
       end
     end
