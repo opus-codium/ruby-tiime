@@ -42,6 +42,8 @@ module Tiime
     end
 
     def amount=(value)
+      value = Float(value)
+
       m = metadata.find { |md| md.key == 'amount' }
       if m.nil?
         metadata << { key: 'amount', type: 'amount', value: { currency: 'EUR', value: value } }
@@ -55,6 +57,8 @@ module Tiime
     end
 
     def vat_amount=(value)
+      value = Float(value)
+
       m = metadata.find { |md| md.key == 'vat_amount' }
       if m.nil?
         metadata << { key: 'vat_amount', type: 'vat_amount', value: { currency: 'EUR', value: value } }
@@ -76,8 +80,8 @@ module Tiime
         metadata = [
           { key: 'date', type: 'datetime', value: date },
           { key: 'wording', type: 'string', value: label },
-          { key: 'amount', type: 'amount', value: { currency: 'EUR', value: amount } },
-          { key: 'vat_amount', type: 'amount', value: { currency: 'EUR', value: vat_amount } },
+          { key: 'amount', type: 'amount', value: { currency: 'EUR', value: Float(amount) } },
+          { key: 'vat_amount', type: 'amount', value: { currency: 'EUR', value: Float(vat_amount) } },
         ]
 
         # Creation
