@@ -12,7 +12,7 @@ require 'tiime'
 # Companies
 pp Tiime::Company.all
 
-my_company = Company.all.first
+my_company = Tiime::Company.all.first
 
 # Customers
 
