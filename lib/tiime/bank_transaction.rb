@@ -32,12 +32,13 @@ module Tiime
     end
 
     def vat_amount
-      return nil if receipts.count.zero?
+      return nil if count_receipts.zero?
 
-      receipt_documents = receipts.map { |receipt| Tiime::Document.find receipt.id }
+      receipt_documents = documents.map { |document| Tiime::Document.find document.id }
 
       receipt_documents.inject(0.0) do |memo, receipt|
-        receipt_vat_amount = receipt.metadata.find { |m| m.key == 'vat_amount' }&.value&.value
+        receipt.metadata.find { |m| m.key == 'vat_amount' }.value.items.find { |i| i.key == 'total' }.value.value
+        receipt_vat_amount = receipt.metadata.find { |m| m.key == 'vat_amount' }&.value&.items.find { |i| i.key == 'total' }&.value&.value
         receipt_vat_amount ||= 0
         memo + receipt_vat_amount
       end
