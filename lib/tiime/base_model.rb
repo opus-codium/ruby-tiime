@@ -6,6 +6,15 @@ module Tiime
   class BaseModel < Flexirest::Base
     base_url 'https://chronos-api.tiime-apps.com/v1'
 
+    Flexirest::Base.faraday_config do |faraday|
+      faraday.adapter(:net_http)
+      faraday.options.timeout       = 10
+      faraday.headers['User-Agent'] = "Flexirest/#{Flexirest::VERSION}"
+      faraday.headers['Connection'] = "Keep-Alive"
+      faraday.headers['Accept']     = "application/json"
+      faraday.request :gzip
+    end
+
     before_request :set_bearer
     def set_bearer(_name, request)
       request.headers['Authorization'] = "Bearer #{ENV.fetch('TIIME_TOKEN', nil)}"

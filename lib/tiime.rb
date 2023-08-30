@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'faraday/gzip'
+
 require 'tiime/bank_account'
 require 'tiime/bank_transaction'
 require 'tiime/company'
