@@ -8,7 +8,9 @@ require 'tiime/company'
 require 'tiime/customer'
 require 'tiime/document'
 require 'tiime/invoice'
+require 'tiime/quotation'
 require 'tiime/receipt'
+require 'tiime/tag'
 
 require 'tiime/version'
 
